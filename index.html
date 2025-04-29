@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Ai Horisont - Skab Vækst med Intelligente AI Løsninger</title> <meta name="description" content="Ai Horisont designer og implementerer avancerede AI-agenter, der transformerer forretningsprocesser, optimerer drift og skaber målbare resultater for din virksomhed."> <meta name="keywords" content="AI agenter, kunstig intelligens, automatisering, forretningsløsninger, effektivitet, AI løsninger, Ai Horisont, machine learning, procesoptimering, intelligent automation, forretningsvækst"> <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Ai Horisont - Skab Vækst med Intelligente AI Løsninger</title>
+    <meta name="description" content="Ai Horisont designer og implementerer avancerede AI-agenter, der transformerer forretningsprocesser, optimerer drift og skaber målbare resultater for din virksomhed.">
+    <meta name="keywords" content="AI agenter, kunstig intelligens, automatisering, forretningsløsninger, effektivitet, AI løsninger, Ai Horisont, machine learning, procesoptimering, intelligent automation, forretningsvækst">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,64 +20,92 @@
 
     <style>
         :root {
-            --emerald-glow: 0 0 18px rgba(16, 185, 129, 0.6);
-            --teal-glow: 0 0 18px rgba(20, 184, 166, 0.6);
+            --emerald-glow: 0 0 22px rgba(16, 185, 129, 0.7); /* Enhanced glow */
+            --teal-glow: 0 0 22px rgba(20, 184, 166, 0.7);
         }
         body { font-family: 'Inter', sans-serif; overflow-x: hidden; @apply bg-gray-50 text-gray-700 antialiased; }
         html { scroll-behavior: smooth; }
 
         /* Header */
-        .header-scrolled { @apply shadow-xl bg-white/90 backdrop-blur-lg border-b border-gray-200/50; }
+        .header-scrolled { @apply shadow-xl bg-white/95 backdrop-blur-xl border-b border-gray-200/50 transition-all duration-500; } /* Smoother transition */
 
         /* CTA Button */
-        .cta-button { @apply inline-block bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold py-3 px-10 rounded-full shadow-lg hover:shadow-xl transform transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[var(--emerald-glow)]; }
-        .cta-button-secondary { @apply inline-block bg-white text-emerald-600 border border-emerald-600 font-semibold py-3 px-10 rounded-full shadow-sm hover:shadow-md transform transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-emerald-50; } /* Secondary CTA */
+        .cta-button {
+            @apply inline-block bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold py-3 px-10 rounded-full shadow-lg transition-all duration-300 ease-out;
+            /* Separate transform for independent control */
+            transform: translateY(0);
+        }
+        .cta-button:hover {
+            @apply shadow-xl transform scale-105 -translate-y-1 shadow-[var(--emerald-glow)]; /* Added scale */
+        }
+        .cta-button-secondary {
+            @apply inline-block bg-white text-emerald-600 border border-emerald-600 font-semibold py-3 px-10 rounded-full shadow-sm transition-all duration-300 ease-out;
+            transform: translateY(0);
+        }
+        .cta-button-secondary:hover {
+             @apply shadow-md transform scale-105 -translate-y-0.5 bg-emerald-50; /* Added scale */
+        }
 
         /* Service Item */
-        .service-item { @apply relative bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 ease-out h-full flex flex-col overflow-hidden transform hover:scale-[1.04] hover:shadow-2xl; }
+        .service-item { @apply relative bg-white p-8 rounded-xl shadow-lg border border-gray-100 transition-all duration-300 ease-out h-full flex flex-col overflow-hidden; transform: scale(1); } /* Explicit base scale */
+        .service-item:hover { @apply scale-[1.04] shadow-2xl border-transparent; } /* Hover effect */
         .service-item::before { content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; margin: -2px; border-radius: inherit; background: linear-gradient(120deg, theme('colors.emerald.300'), theme('colors.teal.300'), theme('colors.cyan.300')); opacity: 0; transition: opacity 0.4s ease-out; }
         .service-item:hover::before { opacity: 1; }
-        .service-item:hover { @apply border-transparent; }
-        .service-item:hover .service-icon-bg { @apply bg-gradient-to-br from-emerald-500 to-teal-600 text-white scale-110 shadow-lg; }
-        .service-icon-bg { @apply inline-block p-4 bg-emerald-100 text-emerald-600 rounded-full transition-all duration-300 ease-out mb-5 shadow-sm; }
-        .service-icon-bg svg { @apply transition-transform duration-300 ease-out; }
-        .service-item:hover .service-icon-bg svg { transform: rotate(-15deg) scale(1.1); }
-        .service-item h3 { @apply text-xl font-semibold mb-3 text-gray-900; }
+        .service-item .service-icon-bg { @apply inline-block p-4 bg-emerald-100 text-emerald-600 rounded-full transition-all duration-300 ease-out mb-5 shadow-sm; transform: scale(1) rotate(0deg); } /* Explicit base transform */
+        .service-item:hover .service-icon-bg { @apply bg-gradient-to-br from-emerald-500 to-teal-600 text-white scale-110 shadow-lg rotate-[-10deg]; } /* Slightly less rotate */
+        .service-item h3 { @apply text-xl font-semibold mb-3 text-gray-900 transition-colors duration-300; }
+        .service-item:hover h3 { @apply text-emerald-700; } /* Title color change */
         .service-item p { flex-grow: 1; @apply text-gray-600 text-base leading-relaxed font-light; }
 
         /* Nav Link */
-        header nav a { @apply relative text-gray-600 hover:text-emerald-600 transition-colors duration-200 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-1/2 after:bg-emerald-500 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0; }
+        header nav a { @apply relative text-gray-600 hover:text-emerald-600 transition-colors duration-200 after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-[-4px] after:left-1/2 after:bg-emerald-500 after:transition-all after:duration-300; }
+        header nav a:hover::after { @apply w-full left-0; } /* Smooth underline */
 
         /* Scroll Animation */
-        .scroll-animate { opacity: 0; transform: translateY(60px); transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1), transform 1s cubic-bezier(0.19, 1, 0.22, 1); }
-        .scroll-animate.is-visible { opacity: 1; transform: translateY(0); }
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px) scale(0.98); /* Add slight scale down */
+            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1); /* Smoother ease */
+            will-change: opacity, transform; /* Performance hint */
+        }
+        .scroll-animate.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1); /* Animate to scale 1 */
+        }
 
-        /* Hero Animation */
-        @keyframes fadeInUpSlight { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+        /* Hero Animation - Slightly more pronounced */
+        @keyframes fadeInUpSlight {
+            from { opacity: 0; transform: translateY(35px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .hero-title-animate { animation: fadeInUpSlight 1s ease-out 0.3s backwards; }
         .hero-text-animate { animation: fadeInUpSlight 1s ease-out 0.5s backwards; }
         .hero-button-animate { animation: fadeInUpSlight 1s ease-out 0.7s backwards; }
 
         /* Hero Canvas */
-        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.5; /* Reduced opacity further */ }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.45; /* Adjusted opacity */ }
 
-        /* Background Patterns */
+        /* Background Patterns - Subtle movement could be added via JS if needed */
         #about { background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23e5e7eb' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E"); background-repeat: repeat; }
         #process { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23d1fae5' fill-opacity='0.15'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM10 18.59l2.83-2.83 1.41 1.41L11.41 20H10v-1.41zM20 38.59l2.83-2.83 1.41 1.41L21.41 40H20v-1.41zM30 18.59l2.83-2.83 1.41 1.41L31.41 20H30v-1.41zM40 38.59l-1.41-1.41L37.17 40H40v-1.41zM20 18.59l2.83-2.83 1.41 1.41L21.41 20H20v-1.41zM30 38.59l2.83-2.83 1.41 1.41L31.41 40H30v-1.41zM10 38.59l2.83-2.83 1.41 1.41L11.41 40H10v-1.41z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
 
         /* Contact Info Box */
-        .contact-info-box { @apply bg-white/70 backdrop-blur-lg border border-white/40 shadow-xl rounded-2xl p-8 md:p-10; } /* Enhanced glass effect */
+        .contact-info-box { @apply bg-white/80 backdrop-blur-lg border border-white/50 shadow-xl rounded-2xl p-8 md:p-10 transition-shadow duration-300; } /* Slightly more opaque */
+        .contact-info-box:hover { @apply shadow-2xl; } /* Subtle hover shadow */
+        .contact-info-box p svg { @apply transition-transform duration-300 ease-out; } /* Prepare icons for animation */
+        .contact-info-box p:hover svg { @apply scale-110; } /* Scale icon on hovering the text line */
 
-        /* Testimonial Card */
-        .testimonial-card { @apply bg-white p-8 rounded-xl shadow-lg border border-gray-100 text-center relative; }
-        .testimonial-quote-icon { @apply absolute top-4 left-4 text-emerald-200 text-5xl opacity-80 -z-10; } /* Quote icon */
+        /* Testimonial Card - REMOVED */
 
         /* Process Steps */
-        .process-step { @apply relative pl-12 pb-8 border-l-2 border-emerald-300; }
+        .process-step { @apply relative pl-12 pb-8 border-l-2 border-emerald-300 transition-all duration-300; }
         .process-step:last-child { @apply border-l-transparent pb-0; }
-        .process-step-number { @apply absolute -left-5 top-0 flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500 text-white font-bold text-lg shadow-md; }
-        .process-step h4 { @apply text-xl font-semibold text-gray-800 mb-1; }
+        .process-step-number { @apply absolute -left-5 top-0 flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500 text-white font-bold text-lg shadow-md transition-all duration-300 ease-out; transform: scale(1); }
+        .process-step:hover .process-step-number { @apply bg-emerald-600 scale-110 shadow-lg; } /* Enhance number on hover */
+        .process-step h4 { @apply text-xl font-semibold text-gray-800 mb-1 transition-colors duration-300; }
+        .process-step:hover h4 { @apply text-emerald-700; } /* Highlight title on hover */
         .process-step p { @apply text-gray-600 font-light; }
+        .process-step:hover { border-left-color: theme('colors.emerald.500'); } /* Highlight line */
 
     </style>
 </head>
@@ -88,19 +119,20 @@
                     <ul class="flex space-x-10">
                         <li><a href="#" class="font-medium pb-1">Forside</a></li>
                         <li><a href="#about" class="font-medium pb-1">Om Os</a></li>
-                        <li><a href="#services" class="font-medium pb-1">Løsninger</a></li> <li><a href="#process" class="font-medium pb-1">Proces</a></li> <li><a href="#testimonials" class="font-medium pb-1">Kunder</a></li> <li><a href="#contact" class="font-medium pb-1">Kontakt</a></li>
+                        <li><a href="#services" class="font-medium pb-1">Løsninger</a></li>
+                        <li><a href="#process" class="font-medium pb-1">Proces</a></li>
+                        <li><a href="#contact" class="font-medium pb-1">Kontakt</a></li>
                     </ul>
                 </nav>
                 <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-gray-600 hover:text-emerald-600 focus:outline-none p-2 -mr-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                 </button>
             </div>
-            <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100 divide-y divide-gray-100 shadow-lg rounded-b-lg">
+            <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-100 divide-y divide-gray-100 shadow-lg rounded-b-lg overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0">
                  <a href="#" class="block px-5 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition duration-150">Forside</a>
                  <a href="#about" class="block px-5 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition duration-150">Om Os</a>
                  <a href="#services" class="block px-5 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition duration-150">Løsninger</a>
                  <a href="#process" class="block px-5 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition duration-150">Proces</a>
-                 <a href="#testimonials" class="block px-5 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition duration-150">Kunder</a>
                  <a href="#contact" class="block px-5 py-3 text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition duration-150">Kontakt</a>
             </div>
         </div>
@@ -119,13 +151,16 @@
 
         <section id="about" class="py-24 md:py-32 bg-white scroll-animate">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-16 text-center">Om Ai Horisont</h2>
-                 <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center"> <div class="space-y-6 text-gray-600 text-lg leading-relaxed font-light">
-                         <h3 class="text-2xl font-medium text-gray-800 mb-4">Jeres Partner i AI Transformation</h3> <p>Ai Horisont er specialister i udvikling af skræddersyede AI-agenter. Vores kernekompetence ligger i at omsætte potentialet i kunstig intelligens til konkrete, værdiskabende løsninger, der optimerer drift, forbedrer kundeoplevelser og driver innovation.</p>
+                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-16 text-center scroll-animate" data-stagger-delay="0">Om Ai Horisont</h2>
+                 <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+                     <div class="space-y-6 text-gray-600 text-lg leading-relaxed font-light scroll-animate" data-stagger-delay="100">
+                         <h3 class="text-2xl font-medium text-gray-800 mb-4">Jeres Partner i AI Transformation</h3>
+                         <p>Ai Horisont er specialister i udvikling af skræddersyede AI-agenter. Vores kernekompetence ligger i at omsætte potentialet i kunstig intelligens til konkrete, værdiskabende løsninger, der optimerer drift, forbedrer kundeoplevelser og driver innovation.</p>
                          <p>Vi arbejder tæt sammen med vores kunder for at forstå deres unikke udfordringer og muligheder. Med en kombination af dyb teknologisk indsigt og strategisk forretningsforståelse bygger vi intelligente systemer, der ikke blot automatiserer, men aktivt forbedrer jeres virksomhed.</p>
                      </div>
-                     <div class="relative aspect-video rounded-xl overflow-hidden shadow-2xl transform md:rotate-1"> <div class="absolute inset-0 bg-gradient-to-br from-emerald-300 to-teal-400 flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" class="h-28 w-28 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                     <div class="relative aspect-video rounded-xl overflow-hidden shadow-2xl transform md:rotate-1 scroll-animate" data-stagger-delay="200">
+                          <div class="absolute inset-0 bg-gradient-to-br from-emerald-300 to-teal-400 flex items-center justify-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-28 w-28 text-white/60 transition-transform duration-500 ease-out hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                           </div>
                           <img src="https://placehold.co/600x400/a7f3d0/065f46?text=Team+Ai+Horisont"
                                alt="Illustration om Ai Horisont team"
@@ -136,46 +171,52 @@
             </div>
         </section>
 
-        <section id="services" class="py-24 md:py-32 bg-gradient-to-b from-emerald-50/30 to-gray-100 scroll-animate">
+        <section id="services" class="py-24 md:py-32 bg-gradient-to-b from-emerald-50/30 to-gray-100">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-8 text-center">Skab Værdi med Vores AI Løsninger</h2> <p class="text-lg text-center text-gray-600 font-light max-w-2xl mx-auto mb-20">Fra kundeservice til dataanalyse – vores AI-agenter er designet til at levere målbare resultater.</p> <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-8 text-center scroll-animate" data-stagger-delay="0">Skab Værdi med Vores AI Løsninger</h2>
+                <p class="text-lg text-center text-gray-600 font-light max-w-2xl mx-auto mb-20 scroll-animate" data-stagger-delay="100">Fra kundeservice til dataanalyse – vores AI-agenter er designet til at levere målbare resultater.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
                     <article class="service-item text-center md:text-left scroll-animate" data-stagger-delay="0">
                         <div class="service-icon-bg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg> </div>
-                        <h3>Kundeservice Agent</h3> <p>Forøg kundetilfredshed med 24/7 support og reducer svartider markant med vores intelligente serviceagent.</p> </article>
+                        <h3>Kundeservice Agent</h3> <p>Forøg kundetilfredshed med 24/7 support og reducer svartider markant med vores intelligente serviceagent.</p>
+                    </article>
                     <article class="service-item text-center md:text-left scroll-animate" data-stagger-delay="150">
                          <div class="service-icon-bg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg> </div>
-                        <h3>Data Analyse Agent</h3> <p>Opdag skjulte mønstre og træf datadrevne beslutninger hurtigere med automatiseret analyse og rapportering.</p> </article>
+                        <h3>Data Analyse Agent</h3> <p>Opdag skjulte mønstre og træf datadrevne beslutninger hurtigere med automatiseret analyse og rapportering.</p>
+                    </article>
                     <article class="service-item text-center md:text-left scroll-animate" data-stagger-delay="300">
                          <div class="service-icon-bg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg> </div>
-                        <h3>Procesoptimerings Agent</h3> <p>Øg effektiviteten og reducer driftsomkostninger ved at automatisere manuelle processer og optimere workflows.</p> </article>
+                        <h3>Procesoptimerings Agent</h3> <p>Øg effektiviteten og reducer driftsomkostninger ved at automatisere manuelle processer og optimere workflows.</p>
+                     </article>
                      <article class="service-item text-center md:text-left scroll-animate" data-stagger-delay="450">
                          <div class="service-icon-bg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg> </div>
-                        <h3>Skræddersyet Agent</h3> <p>Få en unik AI-løsning, der er 100% tilpasset jeres specifikke mål og giver jer en afgørende konkurrencefordel.</p> </article>
+                        <h3>Skræddersyet Agent</h3> <p>Få en unik AI-løsning, der er 100% tilpasset jeres specifikke mål og giver jer en afgørende konkurrencefordel.</p>
+                     </article>
                 </div>
             </div>
         </section>
 
-        <section id="process" class="py-24 md:py-32 bg-white scroll-animate">
+        <section id="process" class="py-24 md:py-32 bg-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-8 text-center">Vores Samarbejdsproces</h2>
-                <p class="text-lg text-center text-gray-600 font-light max-w-2xl mx-auto mb-20">Vi tror på en transparent og iterativ proces for at sikre den bedste løsning.</p>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-8 text-center scroll-animate" data-stagger-delay="0">Vores Samarbejdsproces</h2>
+                <p class="text-lg text-center text-gray-600 font-light max-w-2xl mx-auto mb-20 scroll-animate" data-stagger-delay="100">Vi tror på en transparent og iterativ proces for at sikre den bedste løsning.</p>
                 <div class="max-w-2xl mx-auto">
-                    <div class="process-step scroll-animate" data-stagger-delay="0">
+                    <div class="process-step scroll-animate" data-stagger-delay="150">
                         <div class="process-step-number">1</div>
                         <h4>Analyse & Strategi</h4>
                         <p>Vi starter med at forstå jeres forretning, mål og udfordringer for at definere den rette AI-strategi.</p>
                     </div>
-                    <div class="process-step scroll-animate" data-stagger-delay="150">
+                    <div class="process-step scroll-animate" data-stagger-delay="300">
                         <div class="process-step-number">2</div>
                         <h4>Design & Udvikling</h4>
                         <p>Vores eksperter designer og udvikler AI-agenten med fokus på funktionalitet, skalerbarhed og integration.</p>
                     </div>
-                    <div class="process-step scroll-animate" data-stagger-delay="300">
+                    <div class="process-step scroll-animate" data-stagger-delay="450">
                         <div class="process-step-number">3</div>
                         <h4>Implementering & Test</h4>
                         <p>Vi sikrer en gnidningsfri implementering i jeres eksisterende systemer og tester grundigt for optimal performance.</p>
                     </div>
-                    <div class="process-step scroll-animate" data-stagger-delay="450">
+                    <div class="process-step scroll-animate" data-stagger-delay="600">
                         <div class="process-step-number">4</div>
                         <h4>Optimering & Support</h4>
                         <p>Efter lancering overvåger vi agentens performance, foretager løbende optimeringer og yder fuld support.</p>
@@ -184,51 +225,36 @@
             </div>
         </section>
 
-        <section id="testimonials" class="py-24 md:py-32 bg-gray-100 scroll-animate">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-8 text-center">Hvad Vores Kunder Siger</h2>
-                <p class="text-lg text-center text-gray-600 font-light max-w-2xl mx-auto mb-20">Vi er stolte af de resultater, vi skaber sammen med vores partnere.</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-                    <div class="testimonial-card scroll-animate" data-stagger-delay="0">
-                        <i class="fas fa-quote-left testimonial-quote-icon"></i>
-                        <p class="text-gray-600 italic mb-6 font-light">"Ai Horisonts agent har revolutioneret vores kundeservice. Svartiderne er faldet med 70%, og vores team kan fokusere på mere komplekse sager."</p>
-                        <p class="font-semibold text-gray-800">Anna Jensen</p>
-                        <p class="text-sm text-emerald-600">CEO, Virksomhed A/S</p>
-                    </div>
-                    <div class="testimonial-card scroll-animate" data-stagger-delay="150">
-                         <i class="fas fa-quote-left testimonial-quote-icon"></i>
-                        <p class="text-gray-600 italic mb-6 font-light">"Den dataanalyse-agent, Ai Horisont udviklede, giver os nu indsigt, vi tidligere brugte uger på at finde. Det har været afgørende for vores strategi."</p>
-                        <p class="font-semibold text-gray-800">Bo Petersen</p>
-                        <p class="text-sm text-emerald-600">Marketingchef, Firma B</p>
-                    </div>
-                    <div class="testimonial-card scroll-animate" data-stagger-delay="300">
-                         <i class="fas fa-quote-left testimonial-quote-icon"></i>
-                        <p class="text-gray-600 italic mb-6 font-light">"Samarbejdet med Ai Horisont var professionelt fra start til slut. Deres procesoptimerings-agent har sparet os utallige timer."</p>
-                        <p class="font-semibold text-gray-800">Carla Nielsen</p>
-                        <p class="text-sm text-emerald-600">Driftsleder, Organisation C</p>
-                    </div>
+        <section id="cta" class="py-20 md:py-28 bg-gradient-to-r from-emerald-600 to-teal-700 text-white scroll-animate">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-semibold mb-6 scroll-animate" data-stagger-delay="0">Klar til at Transformere Jeres Forretning med AI?</h2>
+                <p class="text-lg md:text-xl font-light mb-10 max-w-3xl mx-auto scroll-animate" data-stagger-delay="150">Lad os tage en uforpligtende snak om, hvordan en skræddersyet AI-agent kan skabe værdi for jer.</p>
+                <div class="scroll-animate" data-stagger-delay="300">
+                    <a href="#contact" class="cta-button bg-white text-emerald-600 hover:bg-gray-100 hover:text-emerald-700 hover:shadow-lg hover:shadow-white/20">Kontakt Os Nu</a>
                 </div>
             </div>
         </section>
 
-         <section id="cta" class="py-20 md:py-28 bg-gradient-to-r from-emerald-600 to-teal-700 text-white scroll-animate">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl md:text-4xl font-semibold mb-6">Klar til at Transformere Jeres Forretning med AI?</h2>
-                <p class="text-lg md:text-xl font-light mb-10 max-w-3xl mx-auto">Lad os tage en uforpligtende snak om, hvordan en skræddersyet AI-agent kan skabe værdi for jer.</p>
-                <a href="#contact" class="cta-button bg-white text-emerald-600 hover:bg-gray-100 hover:text-emerald-700 hover:shadow-lg hover:shadow-white/20">Kontakt Os Nu</a> </div>
-        </section>
-
-        <section id="contact" class="py-24 md:py-32 bg-white scroll-animate">
+        <section id="contact" class="py-24 md:py-32 bg-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-10 text-center">Lad Os Starte Dialogen</h2>
-                <p class="text-lg text-gray-600 mb-16 text-center leading-relaxed font-light">Udfyld formularen herunder, eller brug vores kontaktoplysninger. Vi ser frem til at høre fra jer.</p>
-                <div class="flex justify-center">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-10 text-center scroll-animate" data-stagger-delay="0">Lad Os Starte Dialogen</h2>
+                <p class="text-lg text-gray-600 mb-16 text-center leading-relaxed font-light scroll-animate" data-stagger-delay="150">Udfyld formularen herunder, eller brug vores kontaktoplysninger. Vi ser frem til at høre fra jer.</p>
+                <div class="flex justify-center scroll-animate" data-stagger-delay="300">
                     <div class="contact-details contact-info-box space-y-6 max-w-lg text-center sm:text-left">
                         <h3 class="text-2xl font-semibold text-emerald-800 mb-5 text-center">Kontaktoplysninger</h3>
                         <div class="space-y-5">
-                            <p class="flex items-center justify-center sm:justify-start text-lg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg> <span><strong>Adresse:</strong><br><span class="font-light">AI Allé 123, Teknologiparken,<br>8000 Aarhus C, Danmark</span></span> </p>
-                            <p class="flex items-center justify-center sm:justify-start text-lg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg> <strong>Telefon:</strong>&nbsp;<a href="tel:+4512345678" class="text-emerald-600 hover:text-emerald-800 hover:underline font-medium">+45 12 34 56 78</a> </p>
-                            <p class="flex items-center justify-center sm:justify-start text-lg"> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg> <strong>Email:</strong>&nbsp;<a href="mailto:info@aihorisont.dk" class="text-emerald-600 hover:text-emerald-800 hover:underline font-medium">info@aihorisont.dk</a> </p>
+                            <p class="flex items-center justify-center sm:justify-start text-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                <span><strong>Adresse:</strong><br><span class="font-light">AI Allé 123, Teknologiparken,<br>8000 Aarhus C, Danmark</span></span>
+                            </p>
+                            <p class="flex items-center justify-center sm:justify-start text-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                <strong>Telefon:</strong>&nbsp;<a href="tel:+4512345678" class="text-emerald-600 hover:text-emerald-800 hover:underline font-medium transition-colors duration-200">+45 12 34 56 78</a>
+                             </p>
+                            <p class="flex items-center justify-center sm:justify-start text-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-4 text-emerald-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                <strong>Email:</strong>&nbsp;<a href="mailto:info@aihorisont.dk" class="text-emerald-600 hover:text-emerald-800 hover:underline font-medium transition-colors duration-200">info@aihorisont.dk</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -240,7 +266,12 @@
     <footer class="bg-gray-900 text-gray-400 py-12 border-t-2 border-emerald-800">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
              <h3 class="text-xl font-semibold text-white mb-6">Ai Horisont</h3>
-            <nav aria-label="Footer Navigation" class="mb-6"> <ul class="flex justify-center space-x-6"> <li><a href="#" class="text-sm hover:text-emerald-400 transition duration-200">Privatlivspolitik</a></li> <li><a href="#" class="text-sm hover:text-emerald-400 transition duration-200">Servicevilkår</a></li> </ul> </nav>
+            <nav aria-label="Footer Navigation" class="mb-6">
+                <ul class="flex justify-center space-x-6">
+                    <li><a href="#" class="text-sm hover:text-emerald-400 transition duration-200">Privatlivspolitik</a></li>
+                    <li><a href="#" class="text-sm hover:text-emerald-400 transition duration-200">Servicevilkår</a></li>
+                </ul>
+             </nav>
             <p class="text-sm">&copy; <span id="current-year">2025</span> Ai Horisont. Alle Rettigheder Forbeholdes.</p>
         </div>
     </footer>
@@ -257,8 +288,26 @@
                 const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
                 menuButton.setAttribute('aria-expanded', !isExpanded);
                 mobileMenu.classList.toggle('hidden');
+                // Animate height and opacity for smooth toggle
+                if (!isExpanded) {
+                    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                    mobileMenu.style.opacity = '1';
+                } else {
+                    mobileMenu.style.maxHeight = '0';
+                    mobileMenu.style.opacity = '0';
+                }
             });
+             // Close mobile menu when a link is clicked
+             mobileMenu.querySelectorAll('a').forEach(link => {
+                 link.addEventListener('click', () => {
+                     menuButton.setAttribute('aria-expanded', 'false');
+                     mobileMenu.classList.add('hidden');
+                     mobileMenu.style.maxHeight = '0';
+                     mobileMenu.style.opacity = '0';
+                 });
+             });
         }
+
 
         // Header Scroll Effect
         const header = document.getElementById('site-header');
@@ -272,149 +321,260 @@
                     header.classList.remove('header-scrolled');
                 }
                 // Optional: Hide header on scroll down, show on scroll up
-                // if (scrollTop > lastScrollTop && scrollTop > 100){
-                //    header.style.top = `-${header.offsetHeight}px`; // Hide
+                // Can be jittery, uncomment and test thoroughly if desired
+                // if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight){
+                //     // Scrolling Down
+                //     header.style.transform = `translateY(-${header.offsetHeight}px)`;
                 // } else {
-                //    header.style.top = "0"; // Show
+                //     // Scrolling Up
+                //      header.style.transform = 'translateY(0)';
                 // }
-                // lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-            }, false);
+                // lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, { passive: true }); // Improve scroll performance
         }
 
 
         // Intersection Observer for Animations (including stagger)
         const animatedElements = document.querySelectorAll('.scroll-animate');
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 }; // Trigger earlier
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px 0px -50px 0px', // Trigger slightly before element is fully in view
+            threshold: 0.1 // 10% visibility needed
+        };
+
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const delay = parseInt(entry.target.dataset.staggerDelay || '0', 10);
-                    setTimeout(() => { entry.target.classList.add('is-visible'); }, delay);
+                    setTimeout(() => {
+                        entry.target.classList.add('is-visible');
+                    }, delay);
                     observer.unobserve(entry.target); // Animate only once
                 }
             });
         }, observerOptions);
-        animatedElements.forEach(el => { observer.observe(el); });
 
-        // --- Hero Canvas Particle Effect ---
+        animatedElements.forEach(el => {
+            if (el) { // Check if element exists
+                 observer.observe(el);
+            }
+        });
+
+        // --- Hero Canvas Particle Effect (Refined) ---
         const canvas = document.getElementById('hero-canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas ? canvas.getContext('2d') : null; // Check if canvas exists
         let particles = [];
         let canvasWidth, canvasHeight;
-        let mouse = { x: null, y: null, radius: 80 }; // Mouse interaction radius
+        let mouse = { x: null, y: null, radius: 90 }; // Slightly larger interaction radius
+        let animationFrameId; // To control animation loop
 
-        window.addEventListener('mousemove', (event) => {
-             // Adjust mouse coordinates based on canvas position and scale
-             const rect = canvas.getBoundingClientRect();
-             mouse.x = (event.clientX - rect.left) * (canvas.width / window.devicePixelRatio / canvas.offsetWidth);
-             mouse.y = (event.clientY - rect.top) * (canvas.height / window.devicePixelRatio / canvas.offsetHeight);
-        });
-         window.addEventListener('mouseout', () => { // Reset mouse position when leaving window
-             mouse.x = null;
-             mouse.y = null;
-         });
+        function setupCanvasInteraction() {
+             window.addEventListener('mousemove', (event) => {
+                 if (!canvas) return;
+                 const rect = canvas.getBoundingClientRect();
+                 const scaleX = canvas.width / window.devicePixelRatio / rect.width;
+                 const scaleY = canvas.height / window.devicePixelRatio / rect.height;
+                 mouse.x = (event.clientX - rect.left) * scaleX;
+                 mouse.y = (event.clientY - rect.top) * scaleY;
+             });
+
+             window.addEventListener('mouseout', () => {
+                 mouse.x = null;
+                 mouse.y = null;
+             });
+              // Touch support
+              canvas.addEventListener('touchmove', (event) => {
+                  if (!canvas) return;
+                  event.preventDefault(); // Prevent scrolling
+                  const rect = canvas.getBoundingClientRect();
+                  const scaleX = canvas.width / window.devicePixelRatio / rect.width;
+                  const scaleY = canvas.height / window.devicePixelRatio / rect.height;
+                  mouse.x = (event.touches[0].clientX - rect.left) * scaleX;
+                  mouse.y = (event.touches[0].clientY - rect.top) * scaleY;
+              }, { passive: false });
+
+              canvas.addEventListener('touchend', () => {
+                  mouse.x = null;
+                  mouse.y = null;
+              });
+        }
 
 
         class Particle {
             constructor(x, y) {
-                this.x = x; this.y = y;
-                this.baseX = this.x; this.baseY = this.y; // Store original position
-                this.size = Math.random() * 2 + 1; // Slightly larger min size
-                this.density = (Math.random() * 30) + 1; // How much it reacts to mouse
-                this.speedX = Math.random() * 0.8 - 0.4; // Even slower base speed
-                this.speedY = Math.random() * 0.8 - 0.4;
-                this.color = `rgba(16, 185, 129, ${Math.random() * 0.4 + 0.2})`; // Vary opacity
+                this.x = x;
+                this.y = y;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.size = Math.random() * 2.5 + 1; // Slightly larger max size
+                this.density = (Math.random() * 25) + 5; // More reaction range
+                this.speedX = Math.random() * 0.6 - 0.3; // Slower drift
+                this.speedY = Math.random() * 0.6 - 0.3;
+                this.color = `rgba(16, 185, 129, ${Math.random() * 0.35 + 0.15})`; // Adjust opacity range
+                this.maxSpeed = 1.5; // Limit max speed from mouse push
             }
-            update() {
-                 // Mouse interaction
-                 let dx = mouse.x - this.x;
-                 let dy = mouse.y - this.y;
-                 let distance = Math.sqrt(dx * dx + dy * dy);
-                 let forceDirectionX = dx / distance;
-                 let forceDirectionY = dy / distance;
-                 let maxDistance = mouse.radius;
-                 let force = (maxDistance - distance) / maxDistance; // Closer = stronger force
-                 let directionX = forceDirectionX * force * this.density * 0.6; // Adjust multiplier
-                 let directionY = forceDirectionY * force * this.density * 0.6;
 
-                 if (distance < mouse.radius && mouse.x !== null) {
-                     // Push away from mouse
-                     this.x -= directionX;
-                     this.y -= directionY;
-                 } else {
-                      // Return to base position slowly or drift
-                     if (this.x !== this.baseX) {
-                         let dxToBase = this.x - this.baseX;
-                         this.x -= dxToBase / 20; // Speed of return
-                     }
-                     if (this.y !== this.baseY) {
-                         let dyToBase = this.y - this.baseY;
-                         this.y -= dyToBase / 20;
-                     }
-                     // Add slight drift back if needed
+            update(scaledWidth, scaledHeight) {
+                // Mouse interaction
+                let dxMouse = mouse.x - this.x;
+                let dyMouse = mouse.y - this.y;
+                let distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                let forceDirectionX = dxMouse / distanceMouse;
+                let forceDirectionY = dyMouse / distanceMouse;
+                let maxDistance = mouse.radius;
+                let force = (maxDistance - distanceMouse) / maxDistance;
+                let pushX = 0, pushY = 0;
+
+                if (distanceMouse < mouse.radius && mouse.x !== null) {
+                    pushX = forceDirectionX * force * this.density * 0.8; // Stronger push
+                    pushY = forceDirectionY * force * this.density * 0.8;
+
+                    // Limit push speed
+                    const pushSpeed = Math.sqrt(pushX*pushX + pushY*pushY);
+                    if (pushSpeed > this.maxSpeed) {
+                        pushX = (pushX / pushSpeed) * this.maxSpeed;
+                        pushY = (pushY / pushSpeed) * this.maxSpeed;
+                    }
+
+                    this.x -= pushX;
+                    this.y -= pushY;
+
+                } else {
+                     // Return to base position more naturally
+                     let dxToBase = this.baseX - this.x;
+                     let dyToBase = this.baseY - this.y;
+                     this.x += dxToBase * 0.04; // Adjust return speed
+                     this.y += dyToBase * 0.04;
+
+                     // Add base drift
                      this.x += this.speedX;
                      this.y += this.speedY;
-                 }
-
-
-                // Bounce off edges (relative to canvas internal size)
-                 const scaledWidth = canvas.width / window.devicePixelRatio;
-                 const scaledHeight = canvas.height / window.devicePixelRatio;
-                if (this.x < 0 || this.x > scaledWidth) {
-                    this.speedX *= -1;
-                    // Ensure particle stays within bounds after bounce
-                    if (this.x < 0) this.x = 0;
-                    if (this.x > scaledWidth) this.x = scaledWidth;
                 }
-                if (this.y < 0 || this.y > scaledHeight) {
+
+                // Bounce off edges (respecting scaled dimensions)
+                if (this.x - this.size < 0 || this.x + this.size > scaledWidth) {
+                    this.speedX *= -1;
+                    this.x = Math.max(this.size, Math.min(scaledWidth - this.size, this.x)); // Prevent sticking
+                     // Nudge back from edge slightly if pushed out
+                     if (pushX !== 0 && (this.x - this.size <= 0 || this.x + this.size >= scaledWidth)) {
+                        this.x -= pushX * 1.5;
+                     }
+                }
+                if (this.y - this.size < 0 || this.y + this.size > scaledHeight) {
                     this.speedY *= -1;
-                     if (this.y < 0) this.y = 0;
-                     if (this.y > scaledHeight) this.y = scaledHeight;
+                    this.y = Math.max(this.size, Math.min(scaledHeight - this.size, this.y)); // Prevent sticking
+                    // Nudge back from edge slightly if pushed out
+                     if (pushY !== 0 && (this.y - this.size <= 0 || this.y + this.size >= scaledHeight)) {
+                        this.y -= pushY * 1.5;
+                     }
                 }
             }
+
             draw() {
+                if (!ctx) return;
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath(); // Close path before filling
                 ctx.fill();
             }
         }
 
         function initParticles() {
+             if (!canvas || !ctx) return; // Ensure canvas and context exist
              particles = [];
              canvasWidth = canvas.offsetWidth;
              canvasHeight = canvas.offsetHeight;
-             // Set canvas internal size considering device pixel ratio
-             canvas.width = canvasWidth * window.devicePixelRatio;
-             canvas.height = canvasHeight * window.devicePixelRatio;
-             // Scale the context to ensure drawing is done at the correct scale
-             ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
 
-             let numberOfParticles = Math.floor((canvasWidth * canvasHeight) / 8000); // Slightly higher density
-             numberOfParticles = Math.min(numberOfParticles, 150); // Increase max limit
+             // Check for zero dimensions (e.g., if canvas is hidden initially)
+             if (canvasWidth === 0 || canvasHeight === 0) {
+                 console.warn("Canvas dimensions are zero. Skipping particle initialization.");
+                 return;
+             }
+
+
+             const dpr = window.devicePixelRatio || 1;
+             canvas.width = canvasWidth * dpr;
+             canvas.height = canvasHeight * dpr;
+             ctx.scale(dpr, dpr);
+
+             // Use scaled dimensions for calculations
+             const scaledWidth = canvasWidth;
+             const scaledHeight = canvasHeight;
+
+
+             let numberOfParticles = Math.floor((scaledWidth * scaledHeight) / 7000); // Adjusted density
+             numberOfParticles = Math.min(numberOfParticles, 180); // Slightly increased max limit
 
              for (let i = 0; i < numberOfParticles; i++) {
-                 // Pass scaled coordinates for initial placement
-                 particles.push(new Particle(Math.random() * canvasWidth, Math.random() * canvasHeight));
+                 particles.push(new Particle(Math.random() * scaledWidth, Math.random() * scaledHeight));
              }
+             console.log(`Initialized ${particles.length} particles.`);
          }
 
         function animateParticles() {
-            // Clear using scaled dimensions
-            ctx.clearRect(0, 0, canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
-            particles.forEach(particle => {
-                particle.update();
+             if (!canvas || !ctx) return; // Stop if canvas removed or context lost
+
+             // Use scaled dimensions for clearing and updates
+             const scaledWidth = canvas.width / (window.devicePixelRatio || 1);
+             const scaledHeight = canvas.height / (window.devicePixelRatio || 1);
+
+             ctx.clearRect(0, 0, scaledWidth, scaledHeight);
+
+             particles.forEach(particle => {
+                particle.update(scaledWidth, scaledHeight); // Pass bounds to update
                 particle.draw();
             });
-            requestAnimationFrame(animateParticles);
+
+            animationFrameId = requestAnimationFrame(animateParticles); // Continue loop
         }
 
-        function debounce(func, wait) { let timeout; return function executedFunction(...args) { const later = () => { clearTimeout(timeout); func(...args); }; clearTimeout(timeout); timeout = setTimeout(later, wait); }; }
+        function debounce(func, wait) {
+             let timeout;
+             return function executedFunction(...args) {
+                 const later = () => {
+                     clearTimeout(timeout);
+                     func(...args);
+                 };
+                 clearTimeout(timeout);
+                 timeout = setTimeout(later, wait);
+             };
+         }
 
-        if (canvas) {
-            initParticles();
-            animateParticles();
-            window.addEventListener('resize', debounce(initParticles, 250));
+        // Initialize and run particle effect only if canvas exists
+        if (canvas && ctx) {
+            try {
+                initParticles();
+                // Only start animation loop if particles were initialized
+                if (particles.length > 0) {
+                    // Cancel any previous frame before starting new one
+                    if (animationFrameId) {
+                         cancelAnimationFrame(animationFrameId);
+                    }
+                    animateParticles();
+                } else {
+                    console.log("No particles initialized, animation not started.");
+                }
+                setupCanvasInteraction(); // Set up mouse/touch listeners
+                 // Debounced resize handler
+                 const debouncedResize = debounce(() => {
+                     console.log("Resizing canvas...");
+                     if (animationFrameId) {
+                         cancelAnimationFrame(animationFrameId); // Stop animation during resize calculation
+                         animationFrameId = null;
+                     }
+                     initParticles(); // Reinitialize particles for new size
+                     if (particles.length > 0 && !animationFrameId) {
+                         animateParticles(); // Restart animation only if needed
+                     }
+                 }, 250);
+                 window.addEventListener('resize', debouncedResize);
+
+            } catch (error) {
+                 console.error("Error initializing or running particle animation:", error);
+            }
+        } else {
+             console.log("Hero canvas element not found or context couldn't be created.");
         }
         // --- End Hero Canvas Particle Effect ---
 
